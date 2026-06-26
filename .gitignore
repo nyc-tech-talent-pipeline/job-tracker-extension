@@ -1,0 +1,3 @@
+# client-id.json contains the Google Client ID — injected by CI from a GitHub secret
+# Copy client-id.example.json to client-id.json and fill in your own value for local development
+client-id.json

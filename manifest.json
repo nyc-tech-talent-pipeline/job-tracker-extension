@@ -1,0 +1,143 @@
+{
+  "manifest_version": 3,
+  "name": "Job Tracker",
+  "version": "1.0.1",
+  "description": "Track job applications effortlessly. Auto-detect postings, autofill forms, and log everything to your Google Sheet \u2014 stay organized.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "identity",
+    "tabs",
+    "alarms",
+    "notifications",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/*",
+    "https://oauth2.googleapis.com/*",
+    "https://sheets.googleapis.com/*",
+    "https://www.linkedin.com/*",
+    "https://www.indeed.com/*",
+    "https://www.glassdoor.com/*",
+    "https://*.lever.co/*",
+    "https://*.greenhouse.io/*",
+    "https://*.workday.com/*",
+    "https://*.myworkdayjobs.com/*",
+    "https://*.smartrecruiters.com/*",
+    "https://*.jobvite.com/*",
+    "https://*.rippling.com/*",
+    "https://*.icims.com/*",
+    "https://*.dayforcehcm.com/*",
+    "https://*.ceridian.com/*",
+    "https://*.ultipro.com/*",
+    "https://*.paylocity.com/*",
+    "https://*.paycom.com/*",
+    "https://*.adp.com/*",
+    "https://*.myworkday.com/*",
+    "https://*.taleo.net/*",
+    "https://*.oraclecloud.com/*",
+    "https://*.successfactors.eu/*",
+    "https://*.successfactors.com/*",
+    "https://*.recruitics.com/*",
+    "https://*.ashbyhq.com/*",
+    "https://jobs.ashbyhq.com/*",
+    "https://*.pinpointrecruitment.com/*",
+    "https://*.recruitee.com/*",
+    "https://*.dover.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/*",
+        "https://www.indeed.com/*",
+        "https://www.glassdoor.com/*",
+        "https://*.lever.co/*",
+        "https://*.greenhouse.io/*",
+        "https://*.workday.com/*",
+        "https://*.myworkdayjobs.com/*",
+        "https://*.smartrecruiters.com/*",
+        "https://*.jobvite.com/*",
+        "https://*.rippling.com/*",
+        "https://*.icims.com/*",
+        "https://*.taleo.net/*",
+        "https://*.successfactors.com/*",
+        "https://*.brassring.com/*",
+        "https://*.ultipro.com/*",
+        "https://*.bamboohr.com/*",
+        "https://*.recruitingbypaycor.com/*",
+        "https://*.applytojob.com/*",
+        "https://*.jobscore.com/*",
+        "https://*.jobvite.com/*",
+        "https://jobs.ashbyhq.com/*",
+        "https://boards.greenhouse.io/*",
+        "https://jobs.lever.co/*",
+        "https://apply.workable.com/*",
+        "https://*.workable.com/*",
+        "https://*.ziprecruiter.com/*",
+        "https://www.dice.com/*",
+        "https://www.monster.com/*",
+        "https://www.simplyhired.com/*",
+        "https://www.builtin.com/*",
+        "https://www.builtinnyc.com/*",
+        "https://www.builtinchicago.com/*",
+        "https://www.builtinaustin.com/*",
+        "https://www.builtinboston.com/*",
+        "https://www.builtinla.com/*",
+        "https://www.builtinsf.com/*",
+        "https://www.builtincolorado.com/*",
+        "https://www.builtinseattle.com/*",
+        "https://www.handshake.com/*",
+        "https://app.joinhandshake.com/*",
+        "https://cityjobs.nyc.gov/*",
+        "https://*.careers.microsoft.com/*",
+        "https://careers.google.com/*",
+        "https://www.amazon.jobs/*",
+        "https://jobs.apple.com/*",
+        "https://www.metacareers.com/*",
+        "https://*.dayforcehcm.com/*",
+        "https://*.ceridian.com/*",
+        "https://*.paylocity.com/*",
+        "https://*.paycom.com/*",
+        "https://*.adp.com/*",
+        "https://*.myworkday.com/*",
+        "https://*.oraclecloud.com/*",
+        "https://*.successfactors.eu/*",
+        "https://*.recruitics.com/*",
+        "https://*.ashbyhq.com/*",
+        "https://*.pinpointrecruitment.com/*",
+        "https://*.recruitee.com/*",
+        "https://*.dover.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "pdf.worker.min.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

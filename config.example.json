@@ -1,0 +1,94 @@
+{
+  "googleClientId": "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+  "statuses": [
+    "🪣 No Reply",
+    "👻 Ghosted",
+    "🗣️ Interview",
+    "❌ Rejected",
+    "🎁 Received Offer",
+    "✅ Offer Accepted"
+  ],
+  "interviewStages": [
+    "👻 Ghosted",
+    "🗣️ Interview",
+    "🎁 Received Offer",
+    "✅ Offer Accepted"
+  ],
+  "interviewTypes": [
+    {
+      "id": "live_coding",
+      "label": "Live Coding",
+      "description": "Algorithm/DS problems in a shared editor",
+      "hasTopics": true,
+      "hasNotes": true,
+      "hasPlatform": false
+    },
+    {
+      "id": "remote_assessment",
+      "label": "Remote Coding Assessment",
+      "description": "Take-home or timed online assessment",
+      "hasTopics": true,
+      "hasNotes": false,
+      "hasPlatform": true
+    },
+    {
+      "id": "system_design",
+      "label": "System Design",
+      "description": "Architecture and design discussion",
+      "hasTopics": false,
+      "hasNotes": true,
+      "hasPlatform": false
+    },
+    {
+      "id": "phone_screen",
+      "label": "Phone Screen",
+      "description": "Initial recruiter or hiring manager call",
+      "hasTopics": false,
+      "hasNotes": true,
+      "hasPlatform": false
+    },
+    {
+      "id": "behavioral",
+      "label": "Behavioral Interview",
+      "description": "STAR-format / culture fit questions",
+      "hasTopics": false,
+      "hasNotes": true,
+      "hasPlatform": false
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "description": "Specify below",
+      "hasTopics": false,
+      "hasNotes": true,
+      "hasPlatform": false
+    }
+  ],
+  "codingTopics": [
+    "Arrays",
+    "Strings",
+    "Hash Maps",
+    "Linked Lists",
+    "Stacks",
+    "Queues",
+    "Binary Search Trees",
+    "Graphs",
+    "Heaps",
+    "Dynamic Programming",
+    "Recursion",
+    "Binary First Search",
+    "Depth First Search",
+    "Sorting"
+  ],
+  "assessmentOnlyTopics": [
+    "Writing Code",
+    "Debugging",
+    "System Design",
+    "Reading Code"
+  ],
+  "assessmentPlatforms": [
+    "HackerRank",
+    "CodeSignal",
+    "Codility"
+  ]
+}
