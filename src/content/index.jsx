@@ -1,4 +1,7 @@
-// content.js — runs on every page
+// content/index.jsx — runs on every page
+
+import { createRoot } from 'react-dom/client';
+import Toast from './Toast.jsx';
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.action === 'detectJob') {
@@ -37,14 +40,18 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 // Auto-dismisses after 8 seconds. Uses a shadow DOM so page styles can't touch it.
 
 const TOAST_KEY = 'jt_toasted_' + window.location.href;
+const TOAST_HOST_ID = '__job-tracker-toast__';
 
 function showJobToast(company, title) {
   // Don't show twice on the same page (e.g. if content script re-runs)
   if (sessionStorage.getItem(TOAST_KEY)) return;
+  // Idempotent guard — dev-mode content-script HMR can re-inject without
+  // tearing down a shadow root that's already attached to the page.
+  if (document.getElementById(TOAST_HOST_ID)) return;
   sessionStorage.setItem(TOAST_KEY, '1');
 
   const host = document.createElement('div');
-  host.id = '__job-tracker-toast__';
+  host.id = TOAST_HOST_ID;
   host.style.cssText = [
     'position:fixed', 'bottom:24px', 'right:24px', 'z-index:2147483647',
     'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
@@ -57,7 +64,7 @@ function showJobToast(company, title) {
               : title            ? title
               : 'a job posting';
 
-  // Use constructable stylesheet to avoid CSP inline-style violations
+  // Use a constructable stylesheet to avoid CSP inline-style violations
   const sheet = new CSSStyleSheet();
   sheet.replaceSync(`
     :host { all: initial; }
@@ -98,55 +105,20 @@ function showJobToast(company, title) {
   `);
   shadow.adoptedStyleSheets = [sheet];
 
-  // Build DOM elements directly instead of via innerHTML
-  const toast    = document.createElement('div');
-  toast.className = 'toast';
-  toast.setAttribute('role', 'alert');
-
-  const icon = document.createElement('span');
-  icon.className = 'icon';
-  icon.textContent = '💼';
-
-  const body = document.createElement('div');
-  body.className = 'body';
-
-  const titleEl = document.createElement('div');
-  titleEl.className = 'title';
-  titleEl.textContent = "Don't forget to log this application!";
-
-  const sub = document.createElement('div');
-  sub.className = 'sub';
-  sub.title = label;
-  sub.textContent = label;
-
-  const closeBtn = document.createElement('button');
-  closeBtn.className = 'close';
-  closeBtn.setAttribute('aria-label', 'Dismiss');
-  closeBtn.textContent = '×';
-
-  const progress = document.createElement('div');
-  progress.className = 'progress';
-
-  body.appendChild(titleEl);
-  body.appendChild(sub);
-  toast.appendChild(icon);
-  toast.appendChild(body);
-  toast.appendChild(closeBtn);
-  toast.appendChild(progress);
-  shadow.appendChild(toast);
-
-  function dismiss() {
-    toast.classList.add('hiding');
-    setTimeout(() => host.remove(), 260);
-  }
-
-  closeBtn.addEventListener('click', dismiss);
-
-  // Auto-dismiss after 8s
-  const timer = setTimeout(dismiss, 8000);
-  closeBtn.addEventListener('click', () => clearTimeout(timer));
-
+  const mountPoint = document.createElement('div');
+  shadow.appendChild(mountPoint);
   document.documentElement.appendChild(host);
+
+  const root = createRoot(mountPoint);
+  root.render(
+    <Toast
+      label={label}
+      onDismiss={() => {
+        root.unmount();
+        host.remove();
+      }}
+    />
+  );
 }
 
 // ── Run on page load ──────────────────────────────────────────────────────────

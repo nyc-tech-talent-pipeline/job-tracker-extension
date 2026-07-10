@@ -36,22 +36,28 @@ You need a Google Cloud project to let the extension write to your sheet.
 6. Set the application ID to your extension's ID (see Step 3 below)
 7. Copy the **Client ID** you get (ends in `.apps.googleusercontent.com`)
 
-8. Copy `config.example.json` to `config.json` and replace `YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com` with your actual Client ID:
+8. Copy `public/config.example.json` to `public/config.json` and replace `YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com` with your actual Client ID:
    ```json
    { "googleClientId": "1234567890-xxxx.apps.googleusercontent.com", ... }
    ```
-   `config.json` is gitignored — your Client ID stays local and is never committed
+   `public/config.json` is gitignored — your Client ID stays local and is never committed
 
 ---
 
-## Step 3 — Load the extension in Chrome
+## Step 3 — Build and load the extension in Chrome
 
-1. Open Chrome and go to `chrome://extensions`
-2. Enable **Developer mode** (top right toggle)
-3. Click **Load unpacked**
-4. Select this folder (`job-tracker-extension`)
-5. Note the **Extension ID** shown — go back to Google Cloud and add it to your OAuth credentials
-6. Click the extension icon in your toolbar to open the popup
+The extension's popup is a React app built with Vite — you need to build it once before loading it into Chrome.
+
+1. Run `npm install` then `npm run build` (or `npm run dev` for a watch build with popup hot-reload)
+2. Open Chrome and go to `chrome://extensions`
+3. Enable **Developer mode** (top right toggle)
+4. Click **Load unpacked**
+5. Select this repo's `dist` folder (not the repo root)
+6. Note the **Extension ID** shown — go back to Google Cloud and add it to your OAuth credentials.
+   The manifest pins a fixed `key`, so this ID stays the same across rebuilds — you only need to do this once.
+7. Click the extension icon in your toolbar to open the popup
+
+After editing source files, re-run `npm run build` (or leave `npm run dev` running) and click the reload icon for the extension on `chrome://extensions`.
 
 ---
 
